@@ -38,21 +38,44 @@ tlsStatus=${remainingDays}
 if [[ ${remainingDays} -le 0 ]]; then
 	tlsStatus="expired"
 fi
+
+# TOTAL ACC CREATE VMESS WS
+vmess=$(grep -c -E "^#vmess " "/etc/xray/config.json")
+# TOTAL ACC CREATE  VLESS WS
+vless=$(grep -c -E "^#vless " "/etc/xray/config.json")
+# TOTAL ACC CREATE  TROJAN WS TLS
+trws=$(grep -c -E "^#trojanws " "/etc/xray/config.json")
+
+# Get the name of the network interface
+interface=$(vnstat --iflist | awk '{print $3}')
+
+# Get the traffic statistics for today, yesterday, and the current month
+dtoday="$(vnstat -i "${interface}" | grep "today" | awk '{print $2" "substr ($3, 1, 1)}')"
+utoday="$(vnstat -i "${interface}" | grep "today" | awk '{print $5" "substr ($6, 1, 1)}')"
+ttoday="$(vnstat -i "${interface}" | grep "today" | awk '{print $8" "substr ($9, 1, 1)}')"
+dyest="$(vnstat -i "${interface}" | grep "yesterday" | awk '{print $2" "substr ($3, 1, 1)}')"
+uyest="$(vnstat -i "${interface}" | grep "yesterday" | awk '{print $5" "substr ($6, 1, 1)}')"
+tyest="$(vnstat -i "${interface}" | grep "yesterday" | awk '{print $8" "substr ($9, 1, 1)}')"
+dmon="$(vnstat -i "${interface}" -m | grep "$(date +"%b '%y")" | awk '{print $3" "substr ($4, 1, 1)}')"
+umon="$(vnstat -i "${interface}" -m | grep "$(date +"%b '%y")" | awk '{print $6" "substr ($7, 1, 1)}')"
+tmon="$(vnstat -i "${interface}" -m | grep "$(date +"%b '%y")" | awk '{print $9" "substr ($10, 1, 1)}')"
+
 # OS Uptime
 uptime="$(uptime -p | cut -d " " -f 2-10)"
 # Download
 #Download/Upload today
-dtoday="$(vnstat -i eth0 | grep "today" | awk '{print $2" "substr ($3, 1, 1)}')"
-utoday="$(vnstat -i eth0 | grep "today" | awk '{print $5" "substr ($6, 1, 1)}')"
-ttoday="$(vnstat -i eth0 | grep "today" | awk '{print $8" "substr ($9, 1, 1)}')"
+#dtoday="$(vnstat -i eth0 | grep "today" | awk '{print $2" "substr ($3, 1, 1)}')"
+#utoday="$(vnstat -i eth0 | grep "today" | awk '{print $5" "substr ($6, 1, 1)}')"
+#ttoday="$(vnstat -i eth0 | grep "today" | awk '{print $8" "substr ($9, 1, 1)}')"
 #Download/Upload yesterday
-dyest="$(vnstat -i eth0 | grep "yesterday" | awk '{print $2" "substr ($3, 1, 1)}')"
-uyest="$(vnstat -i eth0 | grep "yesterday" | awk '{print $5" "substr ($6, 1, 1)}')"
-tyest="$(vnstat -i eth0 | grep "yesterday" | awk '{print $8" "substr ($9, 1, 1)}')"
+#dyest="$(vnstat -i eth0 | grep "yesterday" | awk '{print $2" "substr ($3, 1, 1)}')"
+#uyest="$(vnstat -i eth0 | grep "yesterday" | awk '{print $5" "substr ($6, 1, 1)}')"
+#tyest="$(vnstat -i eth0 | grep "yesterday" | awk '{print $8" "substr ($9, 1, 1)}')"
 #Download/Upload current month
-dmon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $3" "substr ($4, 1, 1)}')"
-umon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $6" "substr ($7, 1, 1)}')"
-tmon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $9" "substr ($10, 1, 1)}')"
+#dmon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $3" "substr ($4, 1, 1)}')"
+#umon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $6" "substr ($7, 1, 1)}')"
+#tmon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $9" "substr ($10, 1, 1)}')"
+
 # user
 Exp2=$"Lifetime"
 Name=$"givpn"
@@ -93,6 +116,23 @@ echo -e ""
 echo -e "\e[1;32m RAM USED   \e[0m: $uram MB"	
 echo -e "\e[1;32m RAM TOTAL  \e[0m: $tram MB"
 echo -e ""
+echo -e "\e[1;33m -------------------------------------------------\e[0m"
+echo -e "\e[1;34m                       TRAFFIC USAGE              \e[0m"
+echo -e "\e[1;33m -------------------------------------------------\e[0m"
+echo -e   ""
+# Print traffic statistics to file in a formatted way with colors
+echo -e "::::::${BLUE}Traffic:Today:Yesterday:Month:${NC}" >/root/t1
+echo -e "::::::${YELLOW}Download:${NC} ${BLUE}$dtoday${NC}:${RED}$dyest${NC}:${YELLOW}$dmon${NC}" >>/root/t1
+echo -e "::::::${YELLOW}Upload:${NC} ${BLUE}$utoday${NC}:${RED}$uyest${NC}:${YELLOW}$umon${NC}" >>/root/t1
+echo -e "::::::${YELLOW}Total:${NC} ${BLUE}$ttoday${NC}:${RED}$tyest${NC}:${YELLOW}$tmon${NC}" >>/root/t1
+echo -e   ""
+echo -e "\e[1;33m -------------------------------------------------\e[0m"
+echo -e "\e[1;34m                       TOTAL CONFIG               \e[0m"
+echo -e "\e[1;33m -------------------------------------------------\e[0m"
+echo -e   ""
+echo -e " \e[$text  V2ray   Vless     Trojan-Ws  \e[0m "
+echo -e " \e[$below     $vmess       $vless           $trws       \e[0m "
+echo -e   ""
 echo -e "\e[1;33m -------------------------------------------------\e[0m"
 echo -e "\e[1;34m                       MENU                       \e[0m"
 echo -e "\e[1;33m -------------------------------------------------\e[0m"
