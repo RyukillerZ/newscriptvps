@@ -40,11 +40,11 @@ if [[ ${remainingDays} -le 0 ]]; then
 fi
 
 # TOTAL ACC CREATE VMESS WS
-vmess=$(grep -c -E "^#vmess " "/etc/xray/config.json")
+vmess=$(grep -c -E "^#vmess" "/etc/xray/config.json")
 # TOTAL ACC CREATE  VLESS WS
-vless=$(grep -c -E "^#vless " "/etc/xray/config.json")
+vless=$(grep -c -E "^#vless" "/etc/xray/config.json")
 # TOTAL ACC CREATE  TROJAN WS TLS
-trws=$(grep -c -E "^#trojanws " "/etc/xray/config.json")
+trws=$(grep -c -E "^#trojanws" "/etc/xray/config.json")
 
 # Get the name of the network interface
 interface=$(vnstat --iflist | awk '{print $3}')
@@ -130,8 +130,8 @@ echo -e "\e[1;33m -------------------------------------------------\e[0m"
 echo -e "\e[1;34m                       TOTAL CONFIG               \e[0m"
 echo -e "\e[1;33m -------------------------------------------------\e[0m"
 echo -e   ""
-echo -e " \e[$text  V2ray   Vless     Trojan-Ws  \e[0m "
-echo -e " \e[$below     $vmess       $vless           $trws       \e[0m "
+echo -e " \e[$text Ssh/Ovpn   V2ray   Vless   Vlessxtls   Trojan-Ws   Trojan-Tls \e[0m "
+echo -e " \e[$below    $total_ssh         $vmess       $vless        $xtls           $trws           $trtls \e[0m "
 echo -e   ""
 echo -e "\e[1;33m -------------------------------------------------\e[0m"
 echo -e "\e[1;34m                       MENU                       \e[0m"
