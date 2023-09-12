@@ -120,11 +120,7 @@ echo -e "\e[1;33m -------------------------------------------------\e[0m"
 echo -e "\e[1;34m                       TRAFFIC USAGE              \e[0m"
 echo -e "\e[1;33m -------------------------------------------------\e[0m"
 echo -e   ""
-# Print traffic statistics to file in a formatted way with colors
-echo -e "::::::${BLUE}Traffic:Today:Yesterday:Month:${NC}" >/root/t1
-echo -e "::::::${YELLOW}Download:${NC} ${BLUE}$dtoday${NC}:${RED}$dyest${NC}:${YELLOW}$dmon${NC}" >>/root/t1
-echo -e "::::::${YELLOW}Upload:${NC} ${BLUE}$utoday${NC}:${RED}$uyest${NC}:${YELLOW}$umon${NC}" >>/root/t1
-echo -e "::::::${YELLOW}Total:${NC} ${BLUE}$ttoday${NC}:${RED}$tyest${NC}:${YELLOW}$tmon${NC}" >>/root/t1
+echo -e "${BICyan}$NC ${BICyan}HARI ini${NC}: ${red}$ttoday$NC ${BICyan}KEMARIN${NC}: ${red}$tyest$NC ${BICyan}BULAN${NC}: ${red}$tmon$NC $NC"
 echo -e   ""
 echo -e "\e[1;33m -------------------------------------------------\e[0m"
 echo -e "\e[1;34m                       TOTAL CONFIG               \e[0m"
