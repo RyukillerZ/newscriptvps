@@ -37,14 +37,14 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 read -p "Expired (days): " masaaktif
 #############
 get_AdminID=$(sed -n '2p' /root/ResBotAuth | cut -d' ' -f2)
-if [ "$(grep -w "vmess $user" "/root/.premium/.database" | wc -l)" != '0' ]; then
-      sed -i "/vmess $user/d" "/root/.premium/.database"
+if [ "$(grep -w "vless $user" "/root/.premium/.database" | wc -l)" != '0' ]; then
+      sed -i "/vless $user/d" "/root/.premium/.database"
 fi
 
-echo "vmess $user $exp $harini $uuid $get_AdminID $get_AdminID active" >>"/root/.premium/.database"
+echo "vless $user $exp $harini $uuid $get_AdminID $get_AdminID active" >>"/root/.premium/.database"
 #############
 exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
-sed -i '/#vmess$/a\###& '"$user $exp"'\
+sed -i '/#vmess$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
 exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
 sed -i '/#vmessgrpc$/a\### '"$user $exp"'\
