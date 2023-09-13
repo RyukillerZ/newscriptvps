@@ -40,11 +40,11 @@ if [[ ${remainingDays} -le 0 ]]; then
 fi
 
 # TOTAL ACC CREATE VMESS WS
-vmess=$(grep -c -E "^#vmess" "/etc/xray/config.json")
+vmess=$(grep -c -E "^###&" "/etc/xray/config.json")
 # TOTAL ACC CREATE  VLESS WS
-vless=$(grep -c -E "^#vless" "/etc/xray/config.json")
+vless=$(grep -c -E "^#&#" "/etc/xray/config.json")
 # TOTAL ACC CREATE  TROJAN WS TLS
-trws=$(grep -c -E "^#trojanws" "/etc/xray/config.json")
+trws=$(grep -c -E "^#!~" "/etc/xray/config.json")
 
 # Get the name of the network interface
 interface=$(vnstat --iflist | awk '{print $3}')
