@@ -3,6 +3,12 @@ MYIP=$(curl -sS ifconfig.me)
 echo "Checking VPS"
 clear
 # Color Validation
+
+P='\e[0;35m'
+B='\033[0;36m'
+G='\e[0;32m'
+N='\e[0m'
+
 DF='\e[39m'
 Bold='\e[1m'
 Blink='\e[5m'
@@ -24,7 +30,42 @@ NC='\e[0m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 LIGHT='\033[0;37m'
+
+# // Export Color & Information
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CYAN='\033[0;36m'
+export LIGHT='\033[0;37m'
+export NC='\033[0m'
+clear
+
+purple() { echo -e "\\033[35;1m${*}\\033[0m"; }
+tyblue() { echo -e "\\033[36;1m${*}\\033[0m"; }
+yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
+green() { echo -e "\\033[32;1m${*}\\033[0m"; }
+red() { echo -e "\\033[31;1m${*}\\033[0m"; }
 # VPS Information
+
+# // nginx status
+nginx=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $nginx == "running" ]]; then
+    status_nginx="${GREEN}ON${NC}"
+else
+    status_nginx="${RED}OFF${NC}"
+fi
+
+# // xray status
+xray=$( systemctl status xray | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
+if [[ $xray == "running" ]]; then
+    status_xray="${GREEN}ON${NC}"
+else
+    status_xray="${RED}OFF${NC}"
+fi
+
+
 #Domain
 domain=$(cat /etc/xray/domain)
 #Status certificate
@@ -46,18 +87,6 @@ vless=$(grep -c -E "^#&#" "/etc/xray/config.json")
 # TOTAL ACC CREATE  TROJAN WS TLS
 trws=$(grep -c -E "^#!~" "/etc/xray/config.json")
 
-# TEXT ON BOX COLOUR
-box=$(cat /etc/box)
-# LINE COLOUR
-line=$(cat /etc/line)
-# TEXT COLOUR ON TOP
-text=$(cat /etc/text)
-# TEXT COLOUR BELOW
-below=$(cat /etc/below)
-# BACKGROUND TEXT COLOUR
-back_text=$(cat /etc/back)
-# NUMBER COLOUR
-number=$(cat /etc/number)
 
 # Get the name of the network interface
 interface=$(vnstat --iflist | awk '{print $3}')
@@ -112,10 +141,9 @@ uram=$( free -m | awk 'NR==2 {print $3}' )
 fram=$( free -m | awk 'NR==2 {print $4}' )
 clear 
 echo -e ""
-echo -e "\e[$text VPS Script"
-echo -e " \e[$line╒════════════════════════════════════════════════════════════╕\e[m"
-echo -e "  \e[$back_text                    \e[30m[\e[$box SERVER INFORMATION\e[30m ]\e[1m                  \e[m"
-echo -e " \e[$line╘════════════════════════════════════════════════════════════╛\e[m"
+echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
+echo -e " \E[0;41;36m                 INFO SERVER                \E[0m"
+echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m"
 echo -e "  \e[$text Cpu Model            :$cname"
 echo -e "  \e[$text Cpu Frequency        :$freq MHz"
 echo -e "  \e[$text Number Of Core       : $cores"
@@ -129,18 +157,24 @@ echo -e "  \e[$text System Uptime        : $uptime"
 echo -e "  \e[$text Ip Vps/Address       : $IPVPS"
 echo -e "  \e[$text Domain Name          : $domain\e[0m"
 echo -e ""
-echo -e " \e[$line╒════════════════════════════════════════════════════════════╕\e[m"
-echo -e "  \e[$back_text                    \e[30m[\e[$box BANDWIDTH MONITORING\e[30m ]\e[1m                  \e[m"
-echo -e " \e[$line╘════════════════════════════════════════════════════════════╛\e[m"
+echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
+echo -e "     [ XRAY-CORE${NC} : ${status_xray} ]   [ NGINX${NC} : ${status_nginx} ]"
+echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m"
+echo -e ""
+echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
+echo -e " \E[0;41;36m            BANDWIDTH MONITORING                \E[0m"
+echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m"
 echo -e ""
 echo -e "   ${GB}Today ($DATE)     Monthly ($(date +%B/%Y))${NC}  "
 echo -e "     ${GB}↓↓ Down: $dtoday          ↓↓ Down: $dmon${NC}   "
 echo -e "     ${GB}↑↑ Up  : $utoday          ↑↑ Up  : $umon${NC}   "
 echo -e "     ${GB}≈ Total: $ttoday          ≈ Total: $tmon${NC}   "
 echo -e   ""
-echo -e " \e[$line╘════════════════════════════════════════════════════════════╛\e[m"
-echo -e " \e[$text Ssh/Ovpn   V2ray   Vless   Vlessxtls   Trojan-Ws   Trojan-Tls \e[0m "
-echo -e " \e[$below    $total_ssh         $vmess       $vless        $xtls           $trws           $trtls \e[0m "
+echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
+echo -e " \E[0;41;36m                 CONFIG                 \E[0m"
+echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m
+echo -e " \e[1;34m Ssh/Ovpn   V2ray   Vless   Vlessxtls   Trojan-Ws   Trojan-Tls \e[0m"
+echo -e " \e[1;33m    $total_ssh         $vmess       $vless        $xtls           $trws           $trtls \e[0m "
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
 echo -e "           ${WB}━━━━━ [ Total Config ] ━━━━━${NC}                "
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
@@ -149,9 +183,9 @@ echo -e " \e[1;31m Vmess  : $vmess \e[0m "
 echo -e " \e[1;31m Vless  : $vless \e[0m "
 echo -e " \e[1;31m Trojan : $trws \e[0m "
 echo -e   ""
-echo -e " \e[$line╒════════════════════════════════════════════════════════════╕\e[m"
-echo -e "  \e[$back_text                        \e[30m[\e[$box VPS MENU\e[30m ]\e[1m                        \e[m"
-echo -e " \e[$line╘════════════════════════════════════════════════════════════╛\e[m"
+echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
+echo -e " \E[0;41;36m                VPS MENU                 \E[0m"
+echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m
 echo -e   ""
 echo -e "\e[1;36m 1 \e[0m: Menu SSH"
 echo -e "\e[1;36m 2 \e[0m: Menu Vmess"
