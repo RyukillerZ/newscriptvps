@@ -46,6 +46,19 @@ vless=$(grep -c -E "^#&#" "/etc/xray/config.json")
 # TOTAL ACC CREATE  TROJAN WS TLS
 trws=$(grep -c -E "^#!~" "/etc/xray/config.json")
 
+# TEXT ON BOX COLOUR
+box=$(cat /etc/box)
+# LINE COLOUR
+line=$(cat /etc/line)
+# TEXT COLOUR ON TOP
+text=$(cat /etc/text)
+# TEXT COLOUR BELOW
+below=$(cat /etc/below)
+# BACKGROUND TEXT COLOUR
+back_text=$(cat /etc/back)
+# NUMBER COLOUR
+number=$(cat /etc/number)
+
 # Get the name of the network interface
 interface=$(vnstat --iflist | awk '{print $3}')
 
