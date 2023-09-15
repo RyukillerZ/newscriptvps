@@ -46,11 +46,11 @@ if [[ ${remainingDays} -le 0 ]]; then
 	tlsStatus="expired"
 fi
 # TOTAL ACC CREATE VMESS WS
-vmess=$(grep -c -E "^###& " "/etc/xray/config.json")
+vmess=$(grep -c -E "^### " "/etc/xray/config.json")
 # TOTAL ACC CREATE  VLESS WS
-vless=$(grep -c -E "^#&# " "/etc/xray/config.json")
+vless=$(grep -c -E "^#& " "/etc/xray/config.json")
 # TOTAL ACC CREATE  VLESS TCP XTLS
-trws=$(grep -c -E "^#!~ " "/etc/xray/config.json")
+trws=$(grep -c -E "^#! " "/etc/xray/config.json")
 
 # OS Uptime
 uptime="$(uptime -p | cut -d " " -f 2-10)"
