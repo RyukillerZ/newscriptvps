@@ -95,7 +95,7 @@ uram=$( free -m | awk 'NR==2 {print $3}' )
 fram=$( free -m | awk 'NR==2 {print $4}' )
 clear 
 echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
-echo -e " \E[0;41;36m               INFO SERVER                  \E[0m"
+echo -e " \E[0;41;36m                 INFO SERVER                \E[0m"
 echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m"
 echo -e "  Cpu Model            :$cname"
 echo -e "  Cpu Frequency        :$freq MHz"
