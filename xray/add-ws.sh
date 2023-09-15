@@ -44,10 +44,10 @@ fi
 echo "vless $user $exp $harini $uuid $get_AdminID $get_AdminID active" >>"/root/.premium/.database"
 #############
 exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
-sed -i '/#vmess$/a\###& '"$user $exp"'\
+sed -i '/#vmess$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
 exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
-sed -i '/#vmessgrpc$/a\### '"$user $exp"'\
+sed -i '/#vmessgrpc$/a\###& '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /etc/xray/config.json
 asu=$(cat <<EOF
       {
