@@ -30,17 +30,6 @@ yell='\e[1;33m'
 tyblue='\e[1;36m'
 purple='\e[0;35m'
 NC='\e[0m'
-purple() { echo -e "\\033[35;1m${*}\\033[0m"; }
-tyblue() { echo -e "\\033[36;1m${*}\\033[0m"; }
-yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-
-red='\e[1;31m'
-green='\e[0;32m'
-NC='\e[0m'
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
 
 # VPS Information
 #Domain
@@ -134,8 +123,8 @@ echo -e " ${GB}≈ Total: $ttoday      ≈ Total: $tmon${NC}   "
 echo -e   ""
 echo -e "               ${WB}Total Config${NC}"
 echo -e "\e[36m╒════════════════════════════════════════════╕\033[0m"
-echo -e "            Vmess Config    :  ${yell}$vmess${N}"
-echo -e "            Vless Config    :  ${yell}$vless${N}"
+echo -e "            Vmess  Config   :  ${yell}$vmess${N}"
+echo -e "            Vless  Config   :  ${yell}$vless${N}"
 echo -e "            Trojan Config   :  ${yell}$trws${N}"
 echo -e "\e[36m╘════════════════════════════════════════════╛\033[0m"
 echo -e "      \033[1;37m  Telegram Contact : @nemoecii\033[0m"
@@ -156,15 +145,13 @@ echo -e   ""
 read -p " Select menu :  "  opt
 echo -e   ""
 case $opt in
-1) clear ; m-sshovpn ;;
-2) clear ; m-vmess ;;
-3) clear ; m-vless ;;
-4) clear ; m-trojan ;;
-5) clear ; m-ssws ;;
-6) clear ; m-system ;;
-7) clear ; running ;;
-8) clear ; clearcache ;;
-9) clear ; reboot ;;
+1) clear ; m-vmess ;;
+2) clear ; m-vless ;;
+3) clear ; m-trojan ;;
+4) clear ; m-system ;;
+5) clear ; running ;;
+6) clear ; clearcache ;;
+7) clear ; reboot ;;
 x) exit ;;
 *) echo "Anda salah tekan " ; sleep 1 ; menu ;;
 esac
